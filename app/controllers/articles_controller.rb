@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
 
 	before_action :find_article, only: [:show, :edit, :update, :destroy]
-	
+
 	def create
 		@article = Article.new(article_params)
 		if @article.save
@@ -15,7 +15,7 @@ class ArticlesController < ApplicationController
 	end
 
 	def index
-		@articles = Article.all
+		@articles = Article.all.order("title ASC")
 	end
 
 	def new
