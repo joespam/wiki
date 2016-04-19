@@ -1,0 +1,27 @@
+!!!
+
+%html
+%head
+	%title Simple Wiki
+	= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+	= javascript_include_tag 'application', 'data-turbolinks-track' => true
+	= csrf_meta_tags
+%body
+	%nav.navbar.navbar-default
+		.container
+			.navbar-header
+				= link_to "Home", root_path, class: "navbar-brand"
+			.nav.navbar.navbar-right
+				= link_to "Add Article", new_article_path, class: "navbar-link"
+	.container
+
+		%p.notice= notice
+		%p.alert= alert
+		= yield
+
+		%ul
+			%li= link_to "All Articles", root_path
+
+			- Category.all.each do |category|
+				%li= link_to category.name, articles_path(category: category.name)
+

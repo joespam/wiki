@@ -16,7 +16,12 @@ class ArticlesController < ApplicationController
 	end
 
 	def index
-		@articles = Article.all.order("title ASC")
+		if params[:category].blank?
+			@articles = Article.all.order("title ASC")
+		else 
+			@category_id = Category.find_by(name: params[:category]).id
+			@articles = Article.where(category_id: @category_id).order("title ASC")
+		end
 	end
 
 	def new
@@ -26,7 +31,7 @@ class ArticlesController < ApplicationController
 	private
 
 	def article_params
-		params.require(:article).permit(:title, :content)
+		params.require(:article).permit(:title, :content, :category_id)
 	end
 
 	def find_article
