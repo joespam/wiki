@@ -12,6 +12,11 @@ class ArticlesController < ApplicationController
 		end
 	end
 
+	def destroy
+		@article.destroy
+		redirect_to root_path
+	end
+
 	def edit
 	end
 
@@ -26,6 +31,14 @@ class ArticlesController < ApplicationController
 
 	def new
 		@article = current_user.articles.build 
+	end
+
+	def update
+		if @article.update(article_params)
+			redirect_to @article
+		else
+			render 'edit'
+		end
 	end
 
 	private
