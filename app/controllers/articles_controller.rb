@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
 
 	before_action :find_article, only: [:show, :edit, :update, :destroy]
+	before_action :authenticate_user!, except: [:show, :index]
 
 	def create
 		@article = current_user.articles.build(article_params)
