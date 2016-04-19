@@ -1,4 +1,7 @@
 class ArticlesController < ApplicationController
+
+	before_action :find_article, only: [:show, :edit, :update, :destroy]
+	
 	def create
 		@article = Article.new(article_params)
 		if @article.save
@@ -12,6 +15,7 @@ class ArticlesController < ApplicationController
 	end
 
 	def index
+		@articles = Article.all
 	end
 
 	def new
@@ -24,7 +28,7 @@ class ArticlesController < ApplicationController
 		params.require(:article).permit(:title, :content)
 	end
 
-	def get_article
+	def find_article
 		@article = Article.find(params[:id])
 	end
 
